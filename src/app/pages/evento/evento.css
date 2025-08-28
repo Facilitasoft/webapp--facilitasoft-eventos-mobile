@@ -1,0 +1,377 @@
+#root_detalhe_evento {
+  width: 100%;
+  min-height: 600px;
+  background-color: rgb(235, 235, 235);
+}
+
+#container_content_descricao_evento {
+  width: 85%;
+  height: 100%;
+  margin: 0 auto 50px;
+}
+
+.titulo_detalhe_evento {
+  color: rgb(78, 78, 78);
+  font-weight: bolder;
+  font-size: 16pt;
+}
+
+#descricao_evento {
+  padding: 30px 0px 0px 0px;
+}
+
+#header_imagem_evento {
+  width: 100%;
+  height: 500px;
+  background-color: rgb(157, 160, 157);
+}
+
+#container_botao_comprar_ingresso {
+  padding: 20px 10px 20px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(90, 0, 236);
+  color: #fff;
+}
+
+  #botao_comprar_ingresso {
+    padding: 10px 10px 10px 10px;
+  }
+
+#modal_ingresso {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #000000a9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#card_ingresso {
+  width: 700px;
+  background-color:rgb(255, 255, 255);
+  min-height: 600px;
+  margin-top: 30px;
+}
+
+#titulo_ingresso {
+  font-weight: bolder;
+  font-size: 12pt;
+  display: flex;
+}
+
+#container_lista_ingressos {
+
+}
+
+#header_ingresso {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: rgb(90, 0, 236);
+  color: #fff;
+}
+
+#titulo_header {
+  min-height: 100px;
+  width: 85%;
+  padding: 20px 0px 0px 0px;
+}
+
+#titulo_evento {
+  font-size: 20pt;
+  font-weight: bolder;
+}
+
+#local_evento {
+  padding-top: 30px;
+  min-height: 200px;
+}
+
+#politica_evento {
+  padding-top: 30px;
+  min-height: 300px;
+}
+
+#content_header_titulo_evento {
+  width: 85%;
+  margin: 0 auto;
+  padding-left: 10px;
+  display: flex;
+}
+
+#header_titulo_evento {
+  min-height: 250px;
+  background-color: #fff;
+  display: flex;
+}
+
+#informacao_ingresso {
+  min-height: 300px;
+}
+
+#paragrafo_descricao_evento {
+  width: 60%;
+  text-align: start;
+}
+
+#lista_ingressos {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background-color: #fff;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+  .item_ingresso {
+    display: flex;
+    padding: 10px;
+    justify-content: space-between;
+    border-bottom: 1px solid rgb(156, 156, 156);
+  }
+
+#imagem_banner {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#produtor_evento {
+  min-height: 300px;
+  padding-top: 30px;
+  background-color: #fff;
+}
+
+  #nome_produtor {
+    font-size: 12pt;
+    font-weight: bolder;
+    color: #a3a3a3;
+  }
+
+  #content_produtor_evento {
+    width: 85%;
+    margin: 0 auto;
+  }
+
+  #descricao_produtor {
+    font-size: 10pt;
+  }
+
+
+
+#titulo_principal_evento {
+
+}
+
+#spinning_evento {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.increment_decrement_group_button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 75px;
+}
+
+.increment_decrement_button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 10px; /* Ajuste o tamanho conforme necessário */
+  height: 30px; /* Ajuste o tamanho conforme necessário */
+  border: 2px solid rgb(25, 135, 84);
+  border-radius: 50%;
+  background-color: #fff;
+  font-size: 24px;
+  font-weight: bold;
+  color: rgb(25, 135, 84);
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+
+#subtotal_ingressos {
+  background-color: #e4e4e4;
+  border-radius: 2px;
+  color: #000000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.background_identidade {
+  background-color: #0075D4;
+  color: #fff;
+}
+
+/* Date Selector Styles */
+.date-selector-container {
+  gap: 12px;
+}
+
+.date-selector-container::-webkit-scrollbar {
+  display: none;
+}
+
+.date-card {
+  min-width: 80px;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  background-color: #ffffff;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.date-card:hover {
+  border-color: #0075D4;
+  background-color: #f8f9fa;
+}
+
+.date-card.selected {
+  border-color: #0075D4;
+  background-color: #0075D4;
+  color: white;
+}
+
+.date-card.selected .date-day {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.date-day {
+  font-size: 0.75rem;
+  text-transform: capitalize;
+  margin-bottom: 4px;
+}
+
+.date-value {
+  font-size: 0.9rem;
+  line-height: 1.2;
+}
+
+.date-nav-btn {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.date-nav-left {
+  left: -15px;
+}
+
+.date-nav-right {
+  right: -15px;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.evento-header-container {
+  background: radial-gradient(ellipse at center, #4b0000 0%, #1a0000 100%);
+  padding: 40px 0 40px 0;
+  color: #fff;
+  margin-bottom: 0;
+}
+.evento-header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.evento-header-info {
+  flex: 1 1 0;
+  padding-right: 40px;
+}
+.evento-header-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 24px;
+  color: #fff;
+}
+.evento-header-detail {
+  display: flex;
+  align-items: center;
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  color: #fff;
+}
+.evento-header-detail i {
+  font-size: 1.3rem;
+  color: #fff;
+}
+.evento-header-image {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.evento-banner-img {
+  max-width: 400px;
+  max-height: 270px;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+  background: #fff;
+}
+.btn-success {
+  background: #4caf50;
+  border: none;
+}
+.banner-blur-bg {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+.banner-blur-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(10px);
+  background: rgba(67, 67, 67, 0.668);
+  z-index: 1;
+}
+.banner-blur-bg > .container-xxl {
+  position: relative;
+  z-index: 2;
+}
+@media (max-width: 900px) {
+  .evento-header-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .evento-header-image {
+    margin-top: 24px;
+    width: 100%;
+    justify-content: flex-start;
+  }
+  .evento-banner-img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .date-nav-btn {
+    display: none;
+  }
+
+  .date-card {
+    min-width: 70px;
+  }
+}

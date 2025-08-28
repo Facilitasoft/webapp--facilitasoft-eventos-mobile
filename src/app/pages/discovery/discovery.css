@@ -1,6 +1,8 @@
 .discover-container {
   padding: 1rem;
-  height: calc(100vh - 140px);
+  padding-bottom: 7rem; /* espaço extra para o footer */
+  min-height: 100vh;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
 }
@@ -17,7 +19,6 @@
   background: #fff;
   border-radius: 20px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  overflow: hidden;
   padding: 1rem;
 }
 
@@ -36,16 +37,24 @@
 }
 
 .card-name {
-  font-size: 1.2rem;
-  font-weight: 700;
-  margin-bottom: 0.3rem;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.2rem;
 }
 
 .card-bio {
-  font-size: 0.95rem;
+  font-size: 0.8rem;
   opacity: 0.9;
-  margin-bottom: 0.7rem;
-  line-height: 1.4;
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  max-height: 3.2em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 .interests {

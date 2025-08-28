@@ -1,12 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { LoginComponent } from './pages/login/login';
 import { BottomNavComponent } from './components/bottom-nav/bottom-nav';
-import { HeaderComponent } from './components/header/header';
-import { MatchesComponent } from './components/match/match';
-import { ChatComponent } from './pages/chat/chat';
-import { DiscoverComponent } from './pages/discovery/discovery';
 
 interface Match {
   id: number;
@@ -20,17 +15,22 @@ interface Match {
 
 // ...existing code...
 @Component({
-    selector: 'app-root',
-    standalone: true,
-    imports: [
-      CommonModule,
-      RouterOutlet,
-      BottomNavComponent
-    ],
-    template: `
+  selector: 'app-root',
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    BottomNavComponent
+  ],
+  template: `
+    <!-- <header class="app-header">
+      <img src="/public/favicon.ico" alt="Logotipo Facilitasoft" style="height: 38px; margin: 12px auto; display: block;" />
+    </header> -->
+    <div class="mb-5">
+      <router-outlet style="display:block;"></router-outlet>
+    </div>
     <app-bottom-nav></app-bottom-nav>
-    <router-outlet></router-outlet>
   `,
-    styleUrls: ["./app.css"]
-  })
+  styleUrls: ["./app.css"]
+})
 export class App { }

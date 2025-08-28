@@ -1,11 +1,7 @@
-    <header class="header">
-      <button
-        *ngIf="showBackButton"
-        class="back-btn"
-        (click)="onBack()"
-      >
-        ←
-      </button>
-      <h1 class="title">{{ title }}</h1>
-      <div class="spacer"></div>
-    </header>
+<header class="header">
+  <button *ngIf="showBackButton" class="back-btn" (click)="onBack()">
+    ←
+  </button>
+  <h1 class="title">{{ title }}</h1>
+  <div class="spacer"></div>
+</header>

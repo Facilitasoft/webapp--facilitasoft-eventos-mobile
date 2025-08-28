@@ -13,9 +13,9 @@ import { Router } from '@angular/router';
 })
 export class BottomNavComponent {
   tabs = [
-    { id: 'discover', icon: '💝', label: 'Descobrir', route: '/' },
-    { id: 'matches', icon: '💕', label: 'Matches', route: '/matches' },
-    { id: 'chat', icon: '💬', label: 'Chat', route: '/chat' },
+    { id: 'discover', icon: '🎉', label: 'Eventos', route: '/' },
+    { id: 'favoritos', icon: '⭐', label: 'Favoritos', route: '/favoritos' },
+    { id: 'ingressos', icon: '🎟️', label: 'Ingressos', route: '/ingressos' },
     { id: 'profile', icon: '👤', label: 'Perfil', route: '/profile/my' }
   ];
 

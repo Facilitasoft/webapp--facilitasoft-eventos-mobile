@@ -1,15 +1,21 @@
 <div class="discover-container">
+  <header style="margin-bottom: 1rem;">
+    <h1 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem;">Eventos</h1>
+    <input type="text" [(ngModel)]="filterText" placeholder="Filtrar por nome ou categoria..."
+      style="width: 100%; padding: 0.5rem; border-radius: 10px; border: 1px solid #ccc; font-size: 0.9rem;" />
+  </header>
   <div class="profile-list">
-    <div *ngFor="let profile of profiles" class="profile-list-item" (click)="goToProfile(profile.id)"
+    <div *ngFor="let event of filteredEvents()" class="profile-list-item" (click)="goToEvent(event.id)"
       style="cursor:pointer;">
-      <div class="profile-list-image" [style.background-image]="'url(' + profile.image + ')'">
+      <div class="profile-list-image" [style.background-image]="'url(' + event.image + ')'">
       </div>
       <div class="profile-list-info">
-        <h2 class="card-name">{{ profile.name }}, {{ profile.age }}</h2>
-        <p class="card-bio">{{ profile.bio }}</p>
+        <h2 class="card-name">{{ event.name }}</h2>
+        <p class="card-bio">Data: {{ event.date }}</p>
+        <p class="card-bio">{{ event.description }}</p>
         <div class="interests">
-          <span *ngFor="let interest of profile.interests.slice(0, 3)" class="interest-tag">
-            {{ interest }}
+          <span *ngFor="let category of event.categories.slice(0, 3)" class="interest-tag">
+            {{ category }}
           </span>
         </div>
       </div>

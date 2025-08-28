@@ -1,0 +1,184 @@
+<app-header />
+<ng-container *ngIf="eventoExiste && !isLoading()">
+  <section id="root_detalhe_evento">
+    <div class="container-fluid p-0 m-0">
+        <img *ngIf="eventoPublico?.pathImagem" [src]="eventoPublico?.pathImagem" alt="Banner do evento"
+          style="width: 100%; height: 100%;" />
+    </div>
+
+    <div class="container-fluid bg-white pt-5 pb-5">
+      <div class="container-xxl">
+        <div class="row">
+          <h2 class="mb-3 text-dark"><strong>{{ eventoPublico?.nomeEvento }}</strong></h2>
+          <ng-container *ngIf="eventoPublico?.idLocalEvento === 'PRESENCIAL'">
+            <div class="d-flex align-items-center mb-1 mt-2">
+              <i class="bi bi-calendar-event me-2 text-primary"></i>
+              <span class="fw-medium">{{ eventoPublico?.datasEvento }}</span>
+            </div>
+            <div class="d-flex align-items-center mb-1 mt-2">
+              <i class="bi bi-geo-alt me-2 text-primary"></i>
+              <span class="fw-medium" *ngIf="eventoPublico?.endereco">
+                {{ eventoPublico?.endereco?.nomeLocal}}
+              </span>
+              <span class="fw-medium" *ngIf="!eventoPublico?.endereco">
+                Endereço não informado
+              </span>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid pt-5 pb-5">
+      <div class="container-xxl">
+        <div class="row mb-4" style="min-height: 400px;">
+          <div class="col-12">
+            <h3 class="titulo_detalhe_evento">Descrição do Evento</h3>
+            <div [innerHTML]="getDescricaoEventoSanitizada()"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid bg-white pt-5 pb-5">
+      <div class="container-xxl">
+        <div class="row">
+          <div class="col">
+            <div>
+              <h3 class="titulo_detalhe_evento">Local do Evento</h3>
+
+              <!-- Evento Online -->
+              <ng-container *ngIf="eventoPublico?.idLocalEvento === 'ONLINE'">
+                <h3 id="nome_produtor">Evento Online</h3>
+                <p id="descricao_produtor">Este evento será realizado de forma virtual</p>
+                <button class="btn background_identidade">Ver detalhes</button>
+              </ng-container>
+
+              <!-- Evento Presencial -->
+              <ng-container *ngIf="eventoPublico?.idLocalEvento === 'PRESENCIAL'">
+                <p id="descricao_produtor" *ngIf="eventoPublico?.endereco">
+                  {{ eventoPublico?.endereco?.logradouro }},
+                  {{ eventoPublico?.endereco?.numero }},
+                  {{ eventoPublico?.endereco?.bairro }},
+                  {{ eventoPublico?.endereco?.cidade }} -
+                  {{ eventoPublico?.endereco?.estado }}
+                </p>
+                <p id="descricao_produtor" *ngIf="!eventoPublico?.endereco">
+                  Endereço não definido
+                </p>
+
+                <button class="btn background_identidade mt-3" *ngIf="eventoPublico?.endereco"
+                  (click)="abrirNoGoogleMaps()">
+                  <i class="bi bi-geo-alt me-2"></i>
+                  Abrir no Google Maps
+                </button>
+              </ng-container>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid pt-5 pb-5" id="ingressos">
+      <div class="container-xxl">
+        <div class="row">
+          <div class="col">
+            <div>
+              <div class="mb-4">
+                <h3 class="titulo_detalhe_evento">Selecione uma data e hora</h3>
+                <div class="position-relative">
+                  <div id="date-selector-container" class="d-flex overflow-auto date-selector-container pb-2"
+                    style="scroll-behavior: smooth; scrollbar-width: none; -ms-overflow-style: none;">
+                    <div *ngFor="let sessao of sessoesEvento; let i = index"
+                      class="date-card flex-shrink-0 me-3 p-3 text-center cursor-pointer"
+                      [class.selected]="sessao.isSelected" (click)="selecionarSessao(i, sessao)">
+                      <div class="date-day text-muted small">{{ sessao.nomeDiaSemana }}</div>
+                      <div class="date-value fw-bold">{{ sessao.dataPorExtenso }}</div>
+                      <div class="date-value fw-bold">{{ sessao.horaInicioSessao }} - {{ sessao.horaFimSessao }}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h6 class="mb-4" *ngIf="sessaoSelecionada">Selecione seus ingressos:</h6>
+              <div class="row" *ngIf="sessaoSelecionada">
+                <div class="col-lg-4 col-md-6 col-sm-12 mb-3" *ngFor="let ingresso of getIngressos()">
+                  <div class="card h-100" [class.border-secondary]="ingresso.ingresso.quantidadeDisponivel <= 0">
+                    <div class="card-body d-flex flex-column">
+                      <div class="flex-grow-1">
+                        <h6 class="card-title mb-2">{{ ingresso.ingresso.tituloIngresso }}</h6>
+                        <p class="card-text text-muted mb-1">R$ {{ ingresso.ingresso.valorIngresso }}</p>
+
+                        <div *ngIf="ingresso.ingresso.quantidadeDisponivel <= 0" class="mb-2">
+                          <small class="text-danger">
+                            <i class="bi bi-x-circle me-1"></i>
+                            Esgotado
+                          </small>
+                        </div>
+                      </div>
+
+                      <div class="d-flex justify-content-center align-items-center mt-3"
+                        *ngIf="ingresso.ingresso.quantidadeDisponivel > 0">
+                        <button type="button" class="btn btn-outline-secondary btn-sm me-2"
+                          (click)="removerQuantidadeIngresso(ingresso)">
+                          <i class="bi bi-dash"></i>
+                        </button>
+                        <span class="mx-2 fw-bold">{{ ingresso.quantidadeSolicitada }}</span>
+                        <button type="button" class="btn btn-outline-secondary btn-sm ms-2"
+                          (click)="adicionarQuantidadeIngresso(ingresso)">
+                          <i class="bi bi-plus"></i>
+                        </button>
+                      </div>
+                      <div class="text-center mt-3" *ngIf="ingresso.ingresso.quantidadeDisponivel <= 0">
+                        <button class="btn btn-outline-secondary btn-sm" disabled>
+                          <i class="bi bi-x-circle me-1"></i>
+                          Esgotado
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-between align-items-center mt-4 p-3 bg-light rounded">
+                <div class="text-start">
+                  <div class="text-muted small">Total</div>
+                  <div class="h5 mb-0 fw-bold">R$ {{ getValorTotalIngressos() | number: '1.2-2' }}</div>
+                </div>
+                <div>
+                  <button type="button" class="btn background_identidade px-4" (click)="comprarIngressos()"
+                    [disabled]="getValorTotalIngressos() <= 0 || !temIngressosDisponiveis()">
+                    <span *ngIf="temIngressosDisponiveis() && getValorTotalIngressos() > 0">
+                      Comprar Ingresso
+                    </span>
+                    <span *ngIf="!temIngressosDisponiveis()">
+                      <i class="bi bi-x-circle me-2"></i>
+                      Ingressos Esgotados
+                    </span>
+                    <span *ngIf="temIngressosDisponiveis() && getValorTotalIngressos() <= 0">
+                      Selecione um Ingresso
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</ng-container>
+<ng-container *ngIf="!eventoExiste && !isLoading()">
+  <div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center">
+    <div class="text-center">
+      <div class="mb-4">
+        <i class="bi bi-calendar-x" style="font-size: 5rem; color: #6c757d;"></i>
+      </div>
+      <h2 class="text-muted mb-3">Evento não encontrado</h2>
+      <p class="text-muted mb-4">O evento que você está procurando não existe ou foi removido.</p>
+      <button type="button" class="btn btn-primary" onclick="window.history.back()">
+        <i class="bi bi-arrow-left me-2"></i>Voltar
+      </button>
+    </div>
+  </div>
+</ng-container>
