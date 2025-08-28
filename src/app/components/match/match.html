@@ -1,0 +1,41 @@
+<div class="matches-container">
+  <div class="new-matches" *ngIf="newMatches.length > 0">
+    <h3 class="section-title">Novos Matches</h3>
+    <div class="matches-grid">
+      <div *ngFor="let match of newMatches" class="new-match-card bounce" (click)="onMatchClick(match)">
+        <div class="match-image" [style.background-image]="'url(' + match.image + ')'">
+          <div class="online-indicator" *ngIf="match.isOnline"></div>
+        </div>
+        <p class="match-name">{{ match.name }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="conversations">
+    <h3 class="section-title">Conversas</h3>
+    <div class="conversation-list">
+      <div *ngFor="let match of existingMatches" class="conversation-item" (click)="onMatchClick(match)">
+        <div class="conversation-avatar">
+          <div class="avatar-image" [style.background-image]="'url(' + match.image + ')'">
+            <div class="online-indicator" *ngIf="match.isOnline"></div>
+          </div>
+        </div>
+        <div class="conversation-info">
+          <div class="conversation-header">
+            <h4 class="conversation-name">{{ match.name }}</h4>
+            <span class="unread-badge" *ngIf="match.unreadCount > 0">
+              {{ match.unreadCount }}
+            </span>
+          </div>
+          <p class="last-message">{{ match.lastMessage || 'Vocês deram match!' }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="empty-state" *ngIf="allMatches.length === 0">
+    <div class="empty-icon">💝</div>
+    <h3>Nenhum match ainda</h3>
+    <p>Continue descobrindo pessoas incríveis!</p>
+  </div>
+</div>

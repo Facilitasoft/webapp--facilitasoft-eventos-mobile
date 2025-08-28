@@ -1,0 +1,67 @@
+<div class="login-container">
+      <div class="login-header">
+        <div class="app-logo">💕</div>
+        <h1 class="app-title">FlirtApp</h1>
+        <p class="app-subtitle">Encontros especiais te aguardam</p>
+      </div>
+
+      <div class="login-form fade-in">
+        <div class="form-group">
+          <input
+            type="email"
+            [(ngModel)]="email"
+            placeholder="Seu melhor e-mail"
+            class="form-input"
+            [class.error]="showError && !email"
+          >
+        </div>
+
+        <div class="form-group">
+          <input
+            type="password"
+            [(ngModel)]="password"
+            placeholder="Senha secreta"
+            class="form-input"
+            [class.error]="showError && !password"
+          >
+        </div>
+
+        <div class="error-message" *ngIf="showError">
+          Por favor, preencha todos os campos
+        </div>
+
+        <button
+          class="login-btn"
+          (click)="onLogin()"
+          [disabled]="isLoading"
+        >
+          <span *ngIf="!isLoading">Entrar no FlirtApp</span>
+          <span *ngIf="isLoading" class="loading-spinner">💫</span>
+        </button>
+
+        <div class="divider">
+          <span>ou</span>
+        </div>
+
+        <button class="social-btn google-btn" (click)="onSocialLogin('google')">
+          <span class="social-icon">🔍</span>
+          Continuar com Google
+        </button>
+
+        <button class="social-btn facebook-btn" (click)="onSocialLogin('facebook')">
+          <span class="social-icon">📘</span>
+          Continuar com Facebook
+        </button>
+
+        <div class="signup-link">
+          <p>Primeira vez aqui? <a href="#" (click)="onSignup($event)">Criar conta</a></p>
+        </div>
+      </div>
+
+      <div class="login-footer">
+        <p class="privacy-text">
+          Ao continuar, você concorda com nossos
+          <a href="#">Termos</a> e <a href="#">Política de Privacidade</a>
+        </p>
+      </div>
+    </div>

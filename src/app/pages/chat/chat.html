@@ -1,0 +1,60 @@
+<div class="chat-container" *ngIf="selectedMatch">
+      <div class="chat-header">
+        <div class="match-info">
+          <div class="match-avatar" [style.background-image]="'url(' + selectedMatch.image + ')'">
+            <div class="online-indicator" *ngIf="selectedMatch.isOnline"></div>
+          </div>
+          <div class="match-details">
+            <h3 class="match-name">{{ selectedMatch.name }}</h3>
+            <p class="match-status">{{ selectedMatch.isOnline ? 'Online agora' : 'Visto por último há pouco' }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="messages-container" #messagesContainer>
+        <div class="match-notification">
+          <div class="match-icon">💕</div>
+          <p>Vocês deram match! Comece uma conversa.</p>
+        </div>
+
+        <div
+          *ngFor="let message of messages; trackBy: trackMessage"
+          class="message"
+          [class.user-message]="message.isFromUser"
+          [class.other-message]="!message.isFromUser"
+          [class.typing]="message.isTyping"
+        >
+          <div class="message-bubble">
+            <span *ngIf="!message.isTyping">{{ message.text }}</span>
+            <div *ngIf="message.isTyping" class="typing-indicator">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+          <div class="message-time">
+            {{ formatTime(message.timestamp) }}
+          </div>
+        </div>
+      </div>
+
+      <div class="chat-input">
+        <div class="input-container">
+          <input
+            type="text"
+            [(ngModel)]="newMessage"
+            (keyup.enter)="sendMessage()"
+            placeholder="Digite sua mensagem..."
+            class="message-input"
+            [disabled]="isTyping"
+          >
+          <button
+            class="send-button"
+            (click)="sendMessage()"
+            [disabled]="!newMessage.trim() || isTyping"
+          >
+            💕
+          </button>
+        </div>
+      </div>
+    </div>

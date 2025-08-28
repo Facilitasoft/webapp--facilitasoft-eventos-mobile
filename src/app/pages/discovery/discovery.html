@@ -1,0 +1,22 @@
+<div class="discover-container">
+  <div class="profile-list">
+    <div *ngFor="let profile of profiles" class="profile-list-item" (click)="goToProfile(profile.id)"
+      style="cursor:pointer;">
+      <div class="profile-list-image" [style.background-image]="'url(' + profile.image + ')'">
+      </div>
+      <div class="profile-list-info">
+        <h2 class="card-name">{{ profile.name }}, {{ profile.age }}</h2>
+        <p class="card-bio">{{ profile.bio }}</p>
+        <div class="interests">
+          <span *ngFor="let interest of profile.interests.slice(0, 3)" class="interest-tag">
+            {{ interest }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="action-buttons">
+    <!-- Botões de ação removidos para visualização em lista -->
+  </div>
+</div>
