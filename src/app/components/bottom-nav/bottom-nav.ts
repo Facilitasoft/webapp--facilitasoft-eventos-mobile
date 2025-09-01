@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 export class BottomNavComponent {
   tabs = [
     { id: 'discover', icon: '🎉', label: 'Eventos', route: '/' },
-    { id: 'favoritos', icon: '⭐', label: 'Favoritos', route: '/favoritos' },
+    { id: 'criarEvento', icon: '🗓️', label: 'Meus eventos', route: '/meus_eventos' },
     { id: 'ingressos', icon: '🎟️', label: 'Ingressos', route: '/ingressos' },
     { id: 'profile', icon: '👤', label: 'Perfil', route: '/profile/my' }
   ];

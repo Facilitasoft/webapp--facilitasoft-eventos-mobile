@@ -1,26 +1,28 @@
 <app-header />
-<ng-container *ngIf="eventoExiste && !isLoading()">
+<ng-container *ngIf="evento && !isLoading">
   <section id="root_detalhe_evento">
     <div class="container-fluid p-0 m-0">
-        <img *ngIf="eventoPublico?.pathImagem" [src]="eventoPublico?.pathImagem" alt="Banner do evento"
-          style="width: 100%; height: 100%;" />
+      <img *ngIf="evento?.urlImagem" [src]="getImagem()" alt="Banner do evento"
+        style="width: 100%; height: 100%;" />
     </div>
 
     <div class="container-fluid bg-white pt-5 pb-5">
       <div class="container-xxl">
         <div class="row">
-          <h2 class="mb-3 text-dark"><strong>{{ eventoPublico?.nomeEvento }}</strong></h2>
-          <ng-container *ngIf="eventoPublico?.idLocalEvento === 'PRESENCIAL'">
+          <h2 class="mb-3 text-dark"><strong>{{ evento?.nomeEvento }}</strong></h2>
+          <ng-container *ngIf="evento?.idLocalEvento === 'PRESENCIAL'">
             <div class="d-flex align-items-center mb-1 mt-2">
               <i class="bi bi-calendar-event me-2 text-primary"></i>
-              <span class="fw-medium">{{ eventoPublico?.datasEvento }}</span>
+              <!-- <span class="fw-medium">{{ evento?.datasEvento }}</span> -->
+              <!-- <i class="bi bi-clock ms-3 me-2 text-primary"></i>
+              <span class="fw-medium">{{ evento?.horarioEvento || 'Horário não informado' }}</span> -->
             </div>
             <div class="d-flex align-items-center mb-1 mt-2">
               <i class="bi bi-geo-alt me-2 text-primary"></i>
-              <span class="fw-medium" *ngIf="eventoPublico?.endereco">
-                {{ eventoPublico?.endereco?.nomeLocal}}
+              <span class="fw-medium" *ngIf="evento?.endereco">
+                {{ evento?.endereco?.nomeLocal}}
               </span>
-              <span class="fw-medium" *ngIf="!eventoPublico?.endereco">
+              <span class="fw-medium" *ngIf="!evento?.endereco">
                 Endereço não informado
               </span>
             </div>
@@ -48,32 +50,31 @@
               <h3 class="titulo_detalhe_evento">Local do Evento</h3>
 
               <!-- Evento Online -->
-              <ng-container *ngIf="eventoPublico?.idLocalEvento === 'ONLINE'">
+              <ng-container *ngIf="evento?.idLocalEvento === 'ONLINE'">
                 <h3 id="nome_produtor">Evento Online</h3>
                 <p id="descricao_produtor">Este evento será realizado de forma virtual</p>
                 <button class="btn background_identidade">Ver detalhes</button>
               </ng-container>
 
               <!-- Evento Presencial -->
-              <ng-container *ngIf="eventoPublico?.idLocalEvento === 'PRESENCIAL'">
-                <p id="descricao_produtor" *ngIf="eventoPublico?.endereco">
-                  {{ eventoPublico?.endereco?.logradouro }},
-                  {{ eventoPublico?.endereco?.numero }},
-                  {{ eventoPublico?.endereco?.bairro }},
-                  {{ eventoPublico?.endereco?.cidade }} -
-                  {{ eventoPublico?.endereco?.estado }}
+              <ng-container *ngIf="evento?.idLocalEvento === 'PRESENCIAL'">
+                <p id="descricao_produtor" *ngIf="evento?.endereco">
+                  {{ evento?.endereco?.logradouro }},
+                  {{ evento?.endereco?.numero }},
+                  {{ evento?.endereco?.bairro }},
+                  {{ evento?.endereco?.cidade }} -
+                  {{ evento?.endereco?.estado }}
                 </p>
-                <p id="descricao_produtor" *ngIf="!eventoPublico?.endereco">
+                <p id="descricao_produtor" *ngIf="!evento?.endereco">
                   Endereço não definido
                 </p>
 
-                <button class="btn background_identidade mt-3" *ngIf="eventoPublico?.endereco"
+                <button class="btn background_identidade mt-3" *ngIf="evento?.endereco"
                   (click)="abrirNoGoogleMaps()">
                   <i class="bi bi-geo-alt me-2"></i>
                   Abrir no Google Maps
                 </button>
               </ng-container>
-
             </div>
           </div>
         </div>
@@ -90,7 +91,7 @@
                 <div class="position-relative">
                   <div id="date-selector-container" class="d-flex overflow-auto date-selector-container pb-2"
                     style="scroll-behavior: smooth; scrollbar-width: none; -ms-overflow-style: none;">
-                    <div *ngFor="let sessao of sessoesEvento; let i = index"
+                    <div *ngFor="let sessao of evento.sessoes; let i = index"
                       class="date-card flex-shrink-0 me-3 p-3 text-center cursor-pointer"
                       [class.selected]="sessao.isSelected" (click)="selecionarSessao(i, sessao)">
                       <div class="date-day text-muted small">{{ sessao.nomeDiaSemana }}</div>
@@ -168,7 +169,7 @@
     </div>
   </section>
 </ng-container>
-<ng-container *ngIf="!eventoExiste && !isLoading()">
+<ng-container *ngIf="!evento && !isLoading">
   <div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center">
     <div class="text-center">
       <div class="mb-4">

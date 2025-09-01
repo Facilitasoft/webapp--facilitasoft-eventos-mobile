@@ -1,74 +1,102 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { SkeletonListComponent } from '../../components/skeleton-list/skeleton-list';
+import { Evento, EventoDTO } from '../../model/evento';
+import { EventoService } from '../../services/eventos';
 
-
-interface Evento {
-  id: number;
-  name: string;
-  date: string;
-  description: string;
-  image: string;
-  categories: string[];
-}
 
 @Component({
   selector: 'app-discover',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, SkeletonListComponent],
   templateUrl: './discovery.html',
   styleUrls: ['./discovery.css']
 })
-export class DiscoverComponent {
-  filterText: string = '';
-  events: Evento[] = [
-    {
-      id: 1,
-      name: 'Festival de Música Urbana',
-      date: '10/09/2025',
-      description: 'Venha curtir os melhores artistas da cena urbana em um festival inesquecível!',
-      image: 'https://images.pexels.com/photos/1679825/pexels-photo-1679825.jpeg?auto=compress&cs=tinysrgb&w=400',
-      categories: ['Música', 'Festival']
-    },
-    {
-      id: 2,
-      name: 'Feira de Tecnologia e Inovação',
-      date: '15/09/2025',
-      description: 'Descubra as novidades do mundo tech e faça networking com profissionais da área.',
-      image: 'https://images.pexels.com/photos/256401/pexels-photo-256401.jpeg?auto=compress&cs=tinysrgb&w=400',
-      categories: ['Tecnologia', 'Inovação']
-    },
-    {
-      id: 3,
-      name: 'Workshop de Fotografia',
-      date: '20/09/2025',
-      description: 'Aprenda técnicas incríveis com fotógrafos renomados e pratique em ambientes inspiradores.',
-      image: 'https://images.pexels.com/photos/167964/pexels-photo-167964.jpeg?auto=compress&cs=tinysrgb&w=400',
-      categories: ['Fotografia', 'Arte']
-    },
-    {
-      id: 4,
-      name: 'Encontro de Yoga ao Ar Livre',
-      date: '25/09/2025',
-      description: 'Relaxe e conecte-se com a natureza em uma sessão especial de yoga para todos os níveis.',
-      image: 'https://images.pexels.com/photos/317157/pexels-photo-317157.jpeg?auto=compress&cs=tinysrgb&w=400',
-      categories: ['Yoga', 'Bem-estar']
-    }
-  ];
+export class DiscoverComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  public isLoading: boolean = true;
 
-  filteredEvents(): Evento[] {
-    const filter = this.filterText.trim().toLowerCase();
-    if (!filter) return this.events;
-    return this.events.filter(event =>
-      event.name.toLowerCase().includes(filter) ||
-      event.categories.some(cat => cat.toLowerCase().includes(filter))
-    );
+  private events: Evento[] = [];
+
+  constructor(private router: Router, private eventoService: EventoService) {}
+
+  ngOnInit(): void {
+    this.consultarEventos().finally(() => {
+      this.isLoading = false;
+    });
   }
 
-  goToEvent(id: number) {
+  async consultarEventos() {
+    const response = await this.eventoService.consultarEventosPublicos();
+    if (!response.sucessoResponse) {
+      alert("Ocorreu um erro ao tentar consultar os eventos. Atualize a página para tentar novamente.")
+    }
+    this.events = this.eventsFromResponse(response.data);
+  }
+
+  formatarDescricao(descricao: string): string {
+    if (!descricao) return '';
+    // Remove tags HTML
+    let texto = descricao.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+    // Remove entidades HTML (ex: &#129354;)
+    texto = texto.replace(/&#\d+;/g, '');
+    // Limita o tamanho
+    return texto.length > 120 ? texto.slice(0, 120) + '...' : texto;
+  }
+
+  eventsFromResponse(data: EventoDTO[] | null): Evento[] {
+    if (!data) { return [] };
+
+    if (data != null && Array.isArray(data)) {
+      return data?.map((response: EventoDTO) => {
+        return {
+          id: response.idEvento,
+          name: response.nomeEvento,
+          dataInicioEvento: response.dataHoraCadastro,
+          dataFimEvento: response.dataHoraCadastro,
+          description: response.descricaoEvento,
+          urlImagem: response.urlImagem,
+          categories: ["Teste"]
+        }
+      });
+    }
+
+    return [];
+  }
+
+  // filteredEvents(): Evento[] {
+  //   const filter = this.filterText.trim().toLowerCase();
+  //   if (!filter) return this.events;
+  //   return this.events.filter(event =>
+  //     event.name.toLowerCase().includes(filter) ||
+  //     event.categories.some(cat => cat.toLowerCase().includes(filter))
+  //   );
+  // }
+
+  getEvents() {
+    return this.events;
+  }
+
+  goToEvent(id: string) {
     this.router.navigate(['/evento', id]);
   }
+
+  getEventosResponse(eventos: EventoDTO[]): any {
+    return eventos.map((evento: EventoDTO) => {
+      return {
+        id: evento.idEvento,
+        name: evento.nomeEvento,
+        date: null,
+        description: evento.descricaoEvento,
+        image: evento.urlImagem,
+        categories: []
+      }
+    })
+  }
+
 }
+
+
+

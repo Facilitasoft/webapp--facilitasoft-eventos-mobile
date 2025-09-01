@@ -2,6 +2,7 @@
   "name": "webapp--facilitasoft-dave",
   "short_name": "webapp--facilitasoft-dave",
   "display": "standalone",
+  "display_override": ["fullscreen", "minimal-ui"],
   "scope": "./",
   "start_url": "./",
   "icons": [
