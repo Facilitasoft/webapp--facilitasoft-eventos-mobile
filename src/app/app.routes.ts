@@ -9,6 +9,7 @@ import { Profile } from './pages/profile/profile';
 export const routes: Routes = [
   { path: '', component: DiscoverComponent },
   { path: 'evento/:id', component: EventoComponent },
+  { path: 'evento/:id/checkout/:idPedido', component: EventoComponent },
   // { path: 'favoritos', component: FavoritosComponent },
   // { path: 'ingressos', component: IngressosComponent },
   { path: 'profile/:id', component: Profile }

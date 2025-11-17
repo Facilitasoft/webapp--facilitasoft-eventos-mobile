@@ -18,7 +18,7 @@ export class CustomHttpClient {
   constructor(private httpClient: HttpClient) { }
 
   async sendRequest<ResponseType>(url: string, mockData: any): Promise<ResponseDefault<ResponseType>> {
-    if(environment.isMockMode) {
+    if (environment.isMockMode) {
       console.log("mock mode ativo")
       return Promise.resolve({
         sucessoResponse: mockData.responseSucesso,
@@ -29,6 +29,26 @@ export class CustomHttpClient {
     }
 
     return firstValueFrom(this.httpClient.get<ResponseType>(url))
+      .then((response: ResponseType) => {
+        return {
+          sucessoResponse: true,
+          statusCode: 200,
+          data: response,
+          errorMessage: null
+        };
+      })
+      .catch((err: HttpErrorResponse) => {
+        return {
+          sucessoResponse: false,
+          statusCode: err.status,
+          data: null,
+          errorMessage: err.error
+        };
+      });
+  }
+
+  async sendPostRequest<ResponseType>(url: string, body: any): Promise<ResponseDefault<ResponseType>> {
+    return firstValueFrom(this.httpClient.post<ResponseType>(url, body))
       .then((response: ResponseType) => {
         return {
           sucessoResponse: true,

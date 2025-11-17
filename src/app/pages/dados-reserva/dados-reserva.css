@@ -1,0 +1,153 @@
+/* Custom styles for detalhe-pedido component */
+
+.navbar {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.card {
+  border: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border-radius: 12px;
+  transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+.step-indicator {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.step-completed {
+  background-color: #28a745;
+  color: white;
+}
+
+.step-pending {
+  background-color: #f8f9fa;
+  color: #007bff;
+  border: 2px solid #007bff;
+}
+
+/* Collapse animation */
+.collapse {
+  transition: height 0.35s ease;
+}
+
+.collapse.show {
+  height: auto;
+}
+
+/* Form styles */
+.form-control:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.form-label {
+  font-weight: 600;
+  color: #495057;
+  margin-bottom: 0.5rem;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+  font-weight: 500;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+.btn-outline-secondary {
+  font-weight: 500;
+}
+
+/* Badge styles */
+.badge {
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 0.5rem 0.75rem;
+}
+
+/* Clickable card header */
+.card-header-clickable {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.card-header-clickable:hover {
+  background-color: #f8f9fa;
+}
+
+/* Loading spinner */
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+}
+
+/* Responsive form */
+@media (max-width: 768px) {
+  .card-body {
+    padding: 1rem;
+  }
+
+  .step-indicator {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+
+  .ms-5 {
+    margin-left: 1rem !important;
+  }
+}
+
+/* Form validation styles */
+.form-control.ng-invalid.ng-touched {
+  border-color: #dc3545;
+}
+
+.form-control.ng-valid.ng-touched {
+  border-color: #28a745;
+}
+
+/* Custom spacing */
+.gap-2 {
+  gap: 0.5rem !important;
+}
+
+/* Text styles */
+.text-muted {
+  color: #6c757d !important;
+}
+
+/* Border styles */
+.border-top {
+  border-top: 1px solid #dee2e6 !important;
+}
+
+/* Icon transitions */
+.fas {
+  transition: transform 0.2s ease;
+}
+
+/* Hover effects */
+.btn:hover {
+  transform: translateY(-1px);
+  transition: transform 0.2s ease;
+}

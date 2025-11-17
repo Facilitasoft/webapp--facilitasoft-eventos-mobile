@@ -5,11 +5,11 @@ export const environment = {
   env: 'local',
   services: {
     service_gestao_eventos: {
-      host: "http://192.168.18.45:31000/service-gestao-eventos"
+      host: "http://localhost:31000/service-gestao-eventos"
     }
   },
   frontend: {
-    redirect: "http://192.168.18.79:4200"
+    redirect: "http://localhost:4200"
   },
   keycloak: {
     realm: 'facilitasoft_login_unico',

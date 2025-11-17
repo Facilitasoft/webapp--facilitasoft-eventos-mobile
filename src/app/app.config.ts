@@ -1,11 +1,11 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChangeDetection, isDevMode, APP_INITIALIZER } from '@angular/core';
+import { APP_INITIALIZER, ApplicationConfig, isDevMode, LOCALE_ID, provideBrowserGlobalErrorListeners, Provider, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { environment } from './environment/environment';
 
-import { routes } from './app.routes';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { provideServiceWorker } from '@angular/service-worker';
-import { KeycloakService } from 'keycloak-angular';
-import { provideHttpClient } from '@angular/common/http';
+import { KeycloakBearerInterceptor, KeycloakService } from 'keycloak-angular';
+import { routes } from './app.routes';
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () => {
@@ -25,6 +25,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
       bearerExcludedUrls: ['/assets', '/clients/public'],
       updateMinValidity: 4,
       enableBearerInterceptor: true,
+      bearerPrefix: 'Bearer',
       // O método shouldAddToken é utilizado para verificar se a requisição deve ou não adicionar o token
       shouldAddToken: (request: any) => {
         const { method, url } = request;
@@ -44,18 +45,26 @@ function initializeKeycloak(keycloak: KeycloakService) {
   }
 };
 
-const provideKeycloak = () => {
-  return {
-    provide: APP_INITIALIZER,
-    useFactory: initializeKeycloak,
-    multi: true,
-    deps: [KeycloakService]
-  }
+// Provider for Keycloak Bearer Interceptor
+const KeycloakBearerInterceptorProvider: Provider = {
+  provide: HTTP_INTERCEPTORS,
+  useClass: KeycloakBearerInterceptor,
+  multi: true
+};
+
+// Provider for Keycloak Initialization
+const KeycloakInitializerProvider: Provider = {
+  provide: APP_INITIALIZER,
+  useFactory: initializeKeycloak,
+  multi: true,
+  deps: [KeycloakService]
 }
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideKeycloak(),
+    KeycloakService,
+    KeycloakInitializerProvider,
+    KeycloakBearerInterceptorProvider,
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
@@ -63,6 +72,7 @@ export const appConfig: ApplicationConfig = {
       enabled: !isDevMode(),
       registrationStrategy: 'registerWhenStable:30000'
     }),
-    provideHttpClient()
+    provideHttpClient(withInterceptorsFromDi()),
+    { provide: LOCALE_ID, useValue: 'pt-BR' }
   ]
 };

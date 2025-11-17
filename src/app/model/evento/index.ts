@@ -21,17 +21,60 @@ export interface EnderecoEventoDTO {
   urlGoogleMaps: string | null;
 }
 
+export interface IngressoDTO {
+  idIngresso: string;
+  idEvento: string;
+  tipoIngresso: string;
+  tituloIngresso: string;
+  valorIngresso: number;
+  quantidadeDisponivel: number;
+  dataHoraCadastro: string;
+  formularioId: string;
+}
+
+export interface SessaoDTO {
+  idSessao: string;
+  idEvento: string;
+  recorrente: boolean;
+  frequencia: string | null;
+  intervalo: number;
+  horaInicioSessao: string;
+  horaFimSessao: string;
+  incluiFeriado: boolean;
+  dataSessao: string;
+  isSelected: boolean;
+}
+
+export interface TipoIngressoDTO {
+  idTipoIngresso: string;
+  nome: string;
+  preco: number;
+  quantidadeDisponivel: number;
+}
+
+export interface SessaoDTO {
+  idSessao: string;
+  idEvento: string;
+  dataSessao: string;
+  horaInicioSessao: string;
+  horaFimSessao: string;
+  dataPorExtenso: string;
+  nomeDiaSemana: string;
+  tiposIngresso: TipoIngressoDTO[];
+}
+
 export interface EventoDTO {
   idEvento: string;
   nomeEvento: string;
-  dataInicioEvento: string;
-  dataFimEvento: string;
   descricaoEvento: string;
   urlImagem: string | null;
+  dataInicioEvento: string;
+  dataFimEvento: string;
+  datasEvento: string[] | null;
   idCategoriaEvento: string;
   idLocalEvento: string;
-  dataHoraCadastro: string;
+  eventoAtivo: boolean | null;
+  statusEvento: string | null;
   endereco: EnderecoEventoDTO;
-  sessoes: any[];
-  ingressos: any[];
+  sessoes: SessaoDTO[];
 }

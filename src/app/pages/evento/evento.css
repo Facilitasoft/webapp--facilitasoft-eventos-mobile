@@ -35,9 +35,9 @@
   color: #fff;
 }
 
-  #botao_comprar_ingresso {
-    padding: 10px 10px 10px 10px;
-  }
+#botao_comprar_ingresso {
+  padding: 10px 10px 10px 10px;
+}
 
 #modal_ingresso {
   position: absolute;
@@ -52,7 +52,7 @@
 
 #card_ingresso {
   width: 700px;
-  background-color:rgb(255, 255, 255);
+  background-color: rgb(255, 255, 255);
   min-height: 600px;
   margin-top: 30px;
 }
@@ -64,7 +64,6 @@
 }
 
 #container_lista_ingressos {
-
 }
 
 #header_ingresso {
@@ -128,12 +127,12 @@
   flex-wrap: wrap;
 }
 
-  .item_ingresso {
-    display: flex;
-    padding: 10px;
-    justify-content: space-between;
-    border-bottom: 1px solid rgb(156, 156, 156);
-  }
+.item_ingresso {
+  display: flex;
+  padding: 10px;
+  justify-content: space-between;
+  border-bottom: 1px solid rgb(156, 156, 156);
+}
 
 #imagem_banner {
   width: 100%;
@@ -147,25 +146,22 @@
   background-color: #fff;
 }
 
-  #nome_produtor {
-    font-size: 12pt;
-    font-weight: bolder;
-    color: #a3a3a3;
-  }
+#nome_produtor {
+  font-size: 12pt;
+  font-weight: bolder;
+  color: #a3a3a3;
+}
 
-  #content_produtor_evento {
-    width: 85%;
-    margin: 0 auto;
-  }
+#content_produtor_evento {
+  width: 85%;
+  margin: 0 auto;
+}
 
-  #descricao_produtor {
-    font-size: 10pt;
-  }
-
-
+#descricao_produtor {
+  font-size: 10pt;
+}
 
 #titulo_principal_evento {
-
 }
 
 #spinning_evento {
@@ -197,7 +193,6 @@
   transition: background-color 0.3s, color 0.3s;
 }
 
-
 #subtotal_ingressos {
   background-color: #e4e4e4;
   border-radius: 2px;
@@ -208,7 +203,7 @@
 }
 
 .background_identidade {
-  background-color: #0075D4;
+  background-color: #0075d4;
   color: #fff;
 }
 
@@ -231,13 +226,13 @@
 }
 
 .date-card:hover {
-  border-color: #0075D4;
+  border-color: #0075d4;
   background-color: #f8f9fa;
 }
 
 .date-card.selected {
-  border-color: #0075D4;
-  background-color: #0075D4;
+  border-color: #0075d4;
+  background-color: #0075d4;
   color: white;
 }
 
@@ -264,7 +259,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .date-nav-left {
@@ -323,7 +318,7 @@
   max-width: 400px;
   max-height: 270px;
   border-radius: 18px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
   background: #fff;
 }
 .btn-success {

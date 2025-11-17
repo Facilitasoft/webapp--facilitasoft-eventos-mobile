@@ -1,0 +1,125 @@
+<div class="container-fluid p-0 m-0 bg-light" style="min-height: 100vh;">
+  <!-- Header -->
+  <div class="container-fluid navbar navbar-dark bg-dark">
+    <div class="container">
+      <div class="navbar-brand text-white">
+        <h4 class="mb-0">Facilita<strong>Soft</strong></h4>
+      </div>
+      <button type="button" class="btn btn-outline-danger" (click)="cancelarCheckout()">
+        Cancelar Compra
+      </button>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="container mt-4 pb-5">
+    <div class="row">
+      <!-- Loading State -->
+      <div *ngIf="!pedido" class="col-12 text-center">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Carregando...</span>
+        </div>
+        <p class="mt-2">Carregando reservas...</p>
+      </div>
+
+
+      <!-- Pedido Details -->
+      <div *ngIf="pedido" class="col-12">
+        <div class="alert alert-info mb-4">
+          <h4 class="alert-heading">
+            <i class="fas fa-user-plus me-2"></i>
+            Dados dos Participantes
+          </h4>
+          <p class="mb-0">Complete as informações dos participantes para cada reserva do seu pedido.</p>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-header text-black bg-dark">
+            <h5 class="card-title mb-0 text-white">
+              <i class="fas fa-user-plus me-2"></i>
+              <strong>Dados do comprador</strong>
+            </h5>
+          </div>
+          <div class="card-body">
+            <formly-form [fields]="fieldsFormDadosComprador" [model]="formDadosCompradorModel"
+              [form]="formDadosComprador" />
+          </div>
+        </div>
+
+        <!-- Reservas List -->
+        <div *ngFor="let reserva of reservasProcessadas; let i = index" class="mb-3">
+          <div class="card text-white">
+            <!-- Collapse Header -->
+            <div class="card-header bg-dark" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse-' + i"
+              style="cursor: pointer;" aria-expanded="true" [attr.aria-controls]="'collapse-' + i">
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <h6 class="m-0 p-0">
+                    Participante
+                  </h6>
+                  <small class="text-muted">Ingresso N° {{ i + 1 }}</small>
+                </div>
+                <div class="d-flex align-items-center">
+                  <i class="fas fa-chevron-down collapse-icon"></i>
+                </div>
+              </div>
+            </div>
+
+            <!-- Collapse Content -->
+            <div class="collapse show" [attr.id]="'collapse-' + i">
+              <div class="card-body">
+                <!-- Informações da Reserva -->
+                <!--
+                <div class="row mb-4">
+                  <div class="col-md-6">
+                    <h6 class="text-muted mb-2">Informações da Reserva</h6>
+                    <p class="mb-1"><strong>ID da Reserva:</strong> {{ reserva.reserva.idReserva }}</p>
+                    <p class="mb-1"><strong>Data da Reserva:</strong> {{ reserva.reserva.dataReserva | date:'dd/MM/yyyy HH:mm' }}</p>
+                  </div>
+                  <div class="col-md-6">
+                    <h6 class="text-muted mb-2">Detalhes do Evento</h6>
+                    <p class="mb-1"><strong>ID do Evento:</strong> {{ reserva.reserva.idEvento }}</p>
+                    <p class="mb-1"><strong>ID da Sessão:</strong> {{ reserva.reserva.idSessao }}</p>
+                  </div>
+                </div>
+                <hr>
+                -->
+
+                <!-- Formulário de Dados do Participante -->
+                <h6 class="text-primary mb-3">
+                  <i class="fas fa-user-edit me-2"></i>
+                  Dados do Participante
+                </h6>
+
+                <formly-form
+                  [fields]="reserva.formulario.fields"
+                  [model]="reserva.formulario.model"
+                  [form]="form"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Botão de Prosseguir -->
+        <div class="card mt-4 border-primary">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <h5 class="mb-1 text-primary">Ir para pagamento</h5>
+                <p class="text-muted mb-0">Complete todos os dados para prosseguir</p>
+              </div>
+              <div class="text-end">
+                <button type="button" class="btn btn-primary btn-lg" (click)="fazerCheckout()">
+                  <i class="fas fa-arrow-right me-2"></i>
+                  Prosseguir para Pagamento
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer />

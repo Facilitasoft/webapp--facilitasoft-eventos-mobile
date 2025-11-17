@@ -54,8 +54,8 @@ export class DiscoverComponent implements OnInit {
         return {
           id: response.idEvento,
           name: response.nomeEvento,
-          dataInicioEvento: response.dataHoraCadastro,
-          dataFimEvento: response.dataHoraCadastro,
+          dataInicioEvento: response.dataInicioEvento,
+          dataFimEvento: response.dataFimEvento,
           description: response.descricaoEvento,
           urlImagem: response.urlImagem,
           categories: ["Teste"]
